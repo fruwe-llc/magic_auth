@@ -1,5 +1,7 @@
 {
   "domain": "{DOMAIN}",
   "clientId": "{CLIENT_ID}",
-  "audience": "{API_IDENTIFIER}"
+  "audience": "{API_IDENTIFIER}",
+  "magicApiKey": "{MAGIC_API_KEY}",
+  "magicProviderId": "{MAGIC_PROVIDER_ID}"
 }

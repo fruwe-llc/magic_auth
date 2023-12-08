@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { NavLink as RouterNavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Magic } from "magic-sdk";
+import { OpenIdExtension } from "@magic-ext/oidc";
 
 import {
   Collapse,
@@ -20,22 +22,27 @@ import {
 
 import { useAuth0 } from "@auth0/auth0-react";
 
+const authConfig = require("../auth_config.json");
+
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const {
-    user,
-    isAuthenticated,
-    loginWithRedirect,
-    logout,
-  } = useAuth0();
+  const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0();
   const toggle = () => setIsOpen(!isOpen);
 
-  const logoutWithRedirect = () =>
+  const magic = new Magic(authConfig.magicApiKey, {
+    // exposes the openid module in your magic instance
+    extensions: [new OpenIdExtension()],
+  });
+
+  const logoutWithRedirect = async () => {
     logout({
-        logoutParams: {
-          returnTo: window.location.origin,
-        }
+      logoutParams: {
+        returnTo: window.location.origin,
+      },
     });
+
+    await magic.user.logout();
+  };
 
   return (
     <div className="nav-container">
@@ -102,6 +109,14 @@ const NavBar = () => {
                       <FontAwesomeIcon icon="user" className="mr-3" /> Profile
                     </DropdownItem>
                     <DropdownItem
+                      tag={RouterNavLink}
+                      to="/magic"
+                      className="dropdown-magic"
+                      activeClassName="router-link-exact-active"
+                    >
+                      <FontAwesomeIcon icon="magic" className="mr-3" /> Magic
+                    </DropdownItem>
+                    <DropdownItem
                       id="qsLogoutBtn"
                       onClick={() => logoutWithRedirect()}
                     >
@@ -150,6 +165,15 @@ const NavBar = () => {
                     activeClassName="router-link-exact-active"
                   >
                     Profile
+                  </RouterNavLink>
+                </NavItem>
+                <NavItem>
+                  <FontAwesomeIcon icon="magic" className="mr-3" />
+                  <RouterNavLink
+                    to="/magic"
+                    activeClassName="router-link-exact-active"
+                  >
+                    Magic
                   </RouterNavLink>
                 </NavItem>
                 <NavItem>
