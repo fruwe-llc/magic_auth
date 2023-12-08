@@ -1,16 +1,14 @@
-# Auth0 React SDK Sample Application
+# Magic Auth Integration with Auth0 React SDK Sample
 
-This sample demonstrates the integration of [Auth0 React SDK](https://github.com/auth0/auth0-react) into a React application created using [create-react-app](https://reactjs.org/docs/create-a-new-react-app.html). The sample is a companion to the [Auth0 React SDK Quickstart](https://auth0.com/docs/quickstart/spa/react).
+This enhanced version of the Auth0 React SDK Sample Application showcases the integration of Magic's "Bring Your Own IDP" feature into a React application. Originally created using [create-react-app](https://reactjs.org/docs/create-a-new-react-app.html), this sample now demonstrates a seamless incorporation of Magic's wallet functionalities with Auth0's robust authentication system.
 
-This sample demonstrates the following use cases:
+## Enhanced Use Cases:
 
-- [Login](https://github.com/auth0-samples/auth0-react-samples/blob/master/Sample-01/src/components/NavBar.js#L72-L79)
-- [Logout](https://github.com/auth0-samples/auth0-react-samples/blob/master/Sample-01/src/components/NavBar.js#L102-L108)
-- [Showing the user profile](https://github.com/auth0-samples/auth0-react-samples/blob/master/Sample-01/src/views/Profile.js)
-- [Protecting routes](https://github.com/auth0-samples/auth0-react-samples/blob/master/Sample-01/src/views/Profile.js#L33)
-- [Calling APIs](https://github.com/auth0-samples/auth0-react-samples/blob/master/Sample-01/src/views/ExternalApi.js)
+- Seamless Wallet Creation: Automatically generate a non-custodial wallet for users upon successful authentication using Auth0.
+- Secure Wallet Management: Users can view their wallet balances directly within the app.
+- Simplified User Experience: Leverage Magic to offer users a streamlined login process without additional touchpoints.
 
-## Project setup
+## Project Setup
 
 Use `yarn` to install the project dependencies:
 
@@ -18,37 +16,31 @@ Use `yarn` to install the project dependencies:
 yarn install
 ```
 
-## Configuration
+## Magic Integration Configuration
 
-### Create an API
+### Setting Up Magic's IDP Feature
 
-For the ["call an API"](https://auth0.com/docs/quickstart/spa/react/02-calling-an-api) page to work, you will need to [create an API](https://auth0.com/docs/apis) using the [management dashboard](https://manage.auth0.com/#/apis). This will give you an API identifier that you can use in the `audience` configuration field below.
+To utilize Magic's IDP feature in conjunction with Auth0, configure the Magic SDK as per the [Magic documentation](https://magic.link/docs). Ensure your Auth0 domain and Magic's client ID are correctly set up for the integration to function properly.
 
-If you do not wish to use an API or observe the API call working, you should not specify the `audience` value in the next step. Otherwise, you will receive a "Service not found" error when trying to authenticate.
+### Configure Auth0 Credentials
 
-### Configure credentials
-
-The project needs to be configured with your Auth0 domain and client ID in order for the authentication flow to work.
-
-To do this, first copy `src/auth_config.json.example` into a new file in the same folder called `src/auth_config.json`, and replace the values with your own Auth0 application credentials, and optionally the base URLs of your application and API:
+Configure your Auth0 domain and client ID as before, ensuring proper linkage with Magic's authentication system:
 
 ```json
+// Copy the src/auth_config.json.example file to src/auth_config.json and fill the config
+
 {
-  "domain": "{YOUR AUTH0 DOMAIN}",
-  "clientId": "{YOUR AUTH0 CLIENT ID}",
-  "audience": "{YOUR AUTH0 API_IDENTIFIER}",
-  "appOrigin": "{OPTIONAL: THE BASE URL OF YOUR APPLICATION (default: http://localhost:3000)}",
-  "apiOrigin": "{OPTIONAL: THE BASE URL OF YOUR API (default: http://localhost:3001)}"
+  "domain": "{DOMAIN}",
+  "clientId": "{CLIENT_ID}",
+  "audience": "{API_IDENTIFIER}",
+  "magicApiKey": "{MAGIC_API_KEY}",
+  "magicProviderId": "{MAGIC_PROVIDER_ID}"
 }
 ```
 
-**Note**: Do not specify a value for `audience` here if you do not wish to use the API part of the sample.
+## Running the Enhanced Application
 
-## Run the sample
-
-### Compile and hot-reload for development
-
-This compiles and serves the React app and starts the backend API server on port 3001.
+To see the Magic integration in action, follow the standard procedures to compile and run the application:
 
 ```bash
 yarn run dev
@@ -56,50 +48,25 @@ yarn run dev
 
 ## Deployment
 
-### Compiles and minifies for production
+Deploy as you would a standard React application:
 
 ```bash
 yarn run build
 ```
 
-### Docker build
+### Docker Build
 
-To build and run the Docker image, run `exec.sh`, or `exec.ps1` on Windows.
-
-### Run your tests
+Follow the same Docker build procedures, now with Magic's integration:
 
 ```bash
-yarn run test
+# To build and run the Docker image
+./exec.sh  # or exec.ps1 on Windows
 ```
 
 ## Frequently Asked Questions
 
-If you're having issues running the sample applications, including issues such as users not being authenticated on page refresh, please [check the auth0-react FAQ](https://github.com/auth0/auth0-react/blob/master/FAQ.md).
+For any issues related to the integration, refer to both the [auth0-react FAQ](https://github.com/auth0/auth0-react/blob/master/FAQ.md) and Magic's support resources.
 
-## What is Auth0?
+## About Magic's IDP Integration
 
-Auth0 helps you to:
-
-* Add authentication with [multiple sources](https://auth0.com/docs/identityproviders), either social identity providers such as **Google, Facebook, Microsoft Account, LinkedIn, GitHub, Twitter, Box, Salesforce** (amongst others), or enterprise identity systems like **Windows Azure AD, Google Apps, Active Directory, ADFS, or any SAML Identity Provider**.
-* Add authentication through more traditional **[username/password databases](https://auth0.com/docs/connections/database/custom-db)**.
-* Add support for **[linking different user accounts](https://auth0.com/docs/users/user-account-linking)** with the same user.
-* Support for generating signed [JSON Web Tokens](https://auth0.com/docs/tokens/json-web-tokens) to call your APIs and **flow the user identity** securely.
-* Analytics of how, when, and where users are logging in.
-* Pull data from other sources and add it to the user profile through [JavaScript rules](https://auth0.com/docs/rules).
-
-## Create a Free Auth0 Account
-
-1. Go to [Auth0](https://auth0.com) and click **Sign Up**.
-2. Use Google, GitHub, or Microsoft Account to login.
-
-## Issue Reporting
-
-If you have found a bug or if you have a feature request, please report them at this repository issues section. Please do not report security vulnerabilities on the public GitHub issue tracker. The [Responsible Disclosure Program](https://auth0.com/responsible-disclosure-policy) details the procedure for disclosing security issues.
-
-## Author
-
-[Auth0](https://auth0.com)
-
-## License
-
-This project is licensed under the MIT license. See the [LICENSE](../LICENSE) file for more info.
+Magic's IDP feature adds a new dimension to Auth0's capabilities, allowing for blockchain-based wallet functionalities within your existing user management system. Learn more about Magic and its innovative solutions at [Magic's official website](https://magic.link).
