@@ -46,23 +46,6 @@ To see the Magic integration in action, follow the standard procedures to compil
 yarn run dev
 ```
 
-## Deployment
-
-Deploy as you would a standard React application:
-
-```bash
-yarn run build
-```
-
-### Docker Build
-
-Follow the same Docker build procedures, now with Magic's integration:
-
-```bash
-# To build and run the Docker image
-./exec.sh  # or exec.ps1 on Windows
-```
-
 ## Frequently Asked Questions
 
 For any issues related to the integration, refer to both the [auth0-react FAQ](https://github.com/auth0/auth0-react/blob/master/FAQ.md) and Magic's support resources.
